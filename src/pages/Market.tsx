@@ -1,0 +1,422 @@
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ChartCard } from "@/components/dashboard/chart-card";
+import { Search, Plus, TrendingUp, TrendingDown, Star, AlertTriangle, Clock, ExternalLink } from "lucide-react";
+
+const Market = () => {
+  const [activeTab, setActiveTab] = useState("markets");
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // Sample data for the market overview
+  const marketData = [
+    {
+      name: "S&P 500",
+      price: "4,782.89",
+      change: "+1.23%",
+      isPositive: true,
+    },
+    {
+      name: "Dow Jones",
+      price: "39,132.76",
+      change: "+0.87%",
+      isPositive: true,
+    },
+    {
+      name: "Nasdaq",
+      price: "15,234.21",
+      change: "+1.68%",
+      isPositive: true,
+    },
+    {
+      name: "Bitcoin",
+      price: "$67,245.12",
+      change: "-2.34%",
+      isPositive: false,
+    },
+    {
+      name: "Gold",
+      price: "$2,342.15",
+      change: "+0.42%",
+      isPositive: true,
+    },
+    {
+      name: "10-Year Treasury",
+      price: "3.842%",
+      change: "-0.053",
+      isPositive: true,
+    },
+  ];
+  
+  // Sample data for the watchlist
+  const watchlistData = [
+    {
+      symbol: "AAPL",
+      name: "Apple Inc.",
+      price: "$189.84",
+      change: "+2.34%",
+      isPositive: true,
+    },
+    {
+      symbol: "MSFT",
+      name: "Microsoft Corp.",
+      price: "$420.21",
+      change: "+1.23%",
+      isPositive: true,
+    },
+    {
+      symbol: "GOOGL",
+      name: "Alphabet Inc.",
+      price: "$142.15",
+      change: "+0.89%",
+      isPositive: true,
+    },
+    {
+      symbol: "AMZN",
+      name: "Amazon.com Inc.",
+      price: "$182.65",
+      change: "-0.42%",
+      isPositive: false,
+    },
+    {
+      symbol: "TSLA",
+      name: "Tesla, Inc.",
+      price: "$223.75",
+      change: "-1.82%",
+      isPositive: false,
+    },
+    {
+      symbol: "META",
+      name: "Meta Platforms Inc.",
+      price: "$486.18",
+      change: "+3.21%",
+      isPositive: true,
+    },
+  ];
+  
+  // Sample news data
+  const newsData = [
+    {
+      title: "Fed Signals Potential Rate Cut in September Amid Cooling Inflation",
+      source: "Financial Times",
+      time: "2 hours ago",
+      category: "Economy",
+    },
+    {
+      title: "Tech Stocks Rally as Earnings Exceed Expectations",
+      source: "Wall Street Journal",
+      time: "4 hours ago",
+      category: "Markets",
+    },
+    {
+      title: "Housing Market Showing Signs of Cooling After Record Highs",
+      source: "Bloomberg",
+      time: "6 hours ago",
+      category: "Real Estate",
+    },
+    {
+      title: "Emerging Markets Face Pressure Amid Dollar Strength",
+      source: "Reuters",
+      time: "8 hours ago",
+      category: "Global Markets",
+    },
+    {
+      title: "Electric Vehicle Demand Surges as Battery Costs Decline",
+      source: "CNBC",
+      time: "10 hours ago",
+      category: "Industry",
+    },
+  ];
+  
+  // Sample chart data
+  const stockChartData = [
+    { name: "Jan", value: 165 },
+    { name: "Feb", value: 170 },
+    { name: "Mar", value: 168 },
+    { name: "Apr", value: 175 },
+    { name: "May", value: 182 },
+    { name: "Jun", value: 187 },
+    { name: "Jul", value: 179 },
+    { name: "Aug", value: 190 },
+  ];
+  
+  const cryptoChartData = [
+    { name: "Jan", value: 45000 },
+    { name: "Feb", value: 48000 },
+    { name: "Mar", value: 52000 },
+    { name: "Apr", value: 58000 },
+    { name: "May", value: 54000 },
+    { name: "Jun", value: 62000 },
+    { name: "Jul", value: 65000 },
+    { name: "Aug", value: 67000 },
+  ];
+  
+  const commoditiesChartData = [
+    { name: "Jan", value: 1850 },
+    { name: "Feb", value: 1920 },
+    { name: "Mar", value: 1980 },
+    { name: "Apr", value: 2050 },
+    { name: "May", value: 2120 },
+    { name: "Jun", value: 2180 },
+    { name: "Jul", value: 2260 },
+    { name: "Aug", value: 2340 },
+  ];
+  
+  return (
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Market Analysis</h1>
+        <p className="text-gray-600 dark:text-gray-400">Track markets, build watchlists, and stay informed with financial news.</p>
+      </div>
+      
+      <div className="mb-6">
+        <Tabs defaultValue="markets" className="space-y-4" onValueChange={setActiveTab}>
+          <div className="flex items-center justify-between">
+            <TabsList>
+              <TabsTrigger value="markets">Markets</TabsTrigger>
+              <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
+              <TabsTrigger value="news">News</TabsTrigger>
+            </TabsList>
+            
+            <div className="relative w-64">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+              <Input 
+                className="pl-9" 
+                placeholder={`Search ${activeTab}...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+          
+          <TabsContent value="markets" className="space-y-6">
+            {/* Market Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {marketData.map((item, index) => (
+                <Card key={index} className="glass-card hover-scale">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{item.name}</p>
+                        <p className="text-2xl font-bold">{item.price}</p>
+                      </div>
+                      <Badge variant={item.isPositive ? "default" : "destructive"} className={`${item.isPositive ? "bg-green-500" : "bg-red-500"} flex gap-1 items-center`}>
+                        {item.isPositive ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
+                        {item.change}
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            {/* Market Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <ChartCard 
+                title="S&P 500" 
+                type="line" 
+                data={stockChartData} 
+              />
+              <ChartCard 
+                title="Bitcoin (USD)" 
+                type="line" 
+                data={cryptoChartData} 
+              />
+              <ChartCard 
+                title="Gold Price" 
+                type="line" 
+                data={commoditiesChartData} 
+              />
+            </div>
+
+            {/* Market Sectors */}
+            <Card className="glass-card">
+              <CardHeader>
+                <CardTitle>Market Sectors</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "Technology", change: "+2.4%", isPositive: true },
+                    { name: "Healthcare", change: "+1.2%", isPositive: true },
+                    { name: "Financials", change: "+0.8%", isPositive: true },
+                    { name: "Energy", change: "-0.5%", isPositive: false },
+                    { name: "Consumer Staples", change: "+0.3%", isPositive: true },
+                    { name: "Utilities", change: "-0.7%", isPositive: false },
+                  ].map((sector, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 border border-gray-100 dark:border-gray-800 rounded-md">
+                      <span>{sector.name}</span>
+                      <Badge variant={sector.isPositive ? "default" : "destructive"} className={`${sector.isPositive ? "bg-green-500" : "bg-red-500"}`}>
+                        {sector.change}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="watchlist" className="space-y-4">
+            <div className="flex justify-end">
+              <Button variant="outline" size="sm" className="gap-1">
+                <Plus className="h-4 w-4" /> Add Symbol
+              </Button>
+            </div>
+            
+            <Card className="glass-card">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <th className="text-left p-4 font-medium">Symbol</th>
+                        <th className="text-left p-4 font-medium">Name</th>
+                        <th className="text-right p-4 font-medium">Price</th>
+                        <th className="text-right p-4 font-medium">Change</th>
+                        <th className="text-center p-4 font-medium">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {watchlistData.map((stock, index) => (
+                        <tr 
+                          key={index} 
+                          className="border-b last:border-0 border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/20"
+                        >
+                          <td className="p-4 font-medium">{stock.symbol}</td>
+                          <td className="p-4 text-gray-700 dark:text-gray-300">{stock.name}</td>
+                          <td className="p-4 text-right">{stock.price}</td>
+                          <td className={`p-4 text-right ${stock.isPositive ? "text-green-600 dark:text-green-500" : "text-red-600 dark:text-red-500"}`}>
+                            {stock.change}
+                          </td>
+                          <td className="p-4 text-center">
+                            <Button variant="ghost" size="icon" className="h-7 w-7">
+                              <Star className="h-4 w-4" />
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <ChartCard 
+              title="Portfolio Performance" 
+              type="area" 
+              data={[
+                { name: "Jan", value: 10000 },
+                { name: "Feb", value: 10400 },
+                { name: "Mar", value: 10200 },
+                { name: "Apr", value: 10800 },
+                { name: "May", value: 11200 },
+                { name: "Jun", value: 11600 },
+                { name: "Jul", value: 11400 },
+                { name: "Aug", value: 12000 },
+              ]} 
+            />
+            
+            <div className="p-4 bg-accent/5 dark:bg-accent/10 rounded-lg border border-accent/10 flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-medium mb-1">Important Disclaimer</h4>
+                <p className="text-sm">Past performance is not indicative of future results. Market data may be delayed. Always do your own research before making investment decisions.</p>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="news" className="space-y-6">
+            <div className="grid grid-cols-1 gap-4">
+              {newsData.map((news, index) => (
+                <Card key={index} className="glass-card hover-scale">
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="space-y-1">
+                        <div className="flex gap-2 items-center">
+                          <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20">
+                            {news.category}
+                          </Badge>
+                          <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                            <Clock className="h-3 w-3" /> {news.time}
+                          </span>
+                        </div>
+                        <h3 className="font-medium text-lg">{news.title}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Source: {news.source}</p>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="text-lg">Market Sentiment</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChartCard 
+                    title="" 
+                    type="pie" 
+                    data={[
+                      { name: "Bullish", value: 60 },
+                      { name: "Neutral", value: 25 },
+                      { name: "Bearish", value: 15 },
+                    ]} 
+                    height={200}
+                  />
+                </CardContent>
+              </Card>
+              <Card className="glass-card md:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-lg">Economic Calendar</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <tbody>
+                        {[
+                          { event: "Fed Interest Rate Decision", date: "Sep 18", impact: "High" },
+                          { event: "Non-Farm Payrolls", date: "Oct 7", impact: "High" },
+                          { event: "CPI Data Release", date: "Sep 14", impact: "Medium" },
+                          { event: "GDP Growth Rate", date: "Sep 28", impact: "Medium" },
+                          { event: "Retail Sales", date: "Sep 17", impact: "Low" },
+                        ].map((event, index) => (
+                          <tr 
+                            key={index} 
+                            className="border-b last:border-0 border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900/20"
+                          >
+                            <td className="p-3 font-medium">{event.event}</td>
+                            <td className="p-3 text-gray-600 dark:text-gray-400">{event.date}</td>
+                            <td className="p-3">
+                              <Badge variant="outline" className={
+                                event.impact === "High" ? "bg-red-50 text-red-600 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/30" :
+                                event.impact === "Medium" ? "bg-orange-50 text-orange-600 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800/30" :
+                                "bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/30"
+                              }>
+                                {event.impact} Impact
+                              </Badge>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+};
+
+export default Market;
