@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, PieChart, Pie, LineChart, Line, Area, AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, PieChart, Pie, LineChart, Line, Area, AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from "recharts";
 import { cn } from "@/lib/utils";
 
 interface ChartCardProps {
@@ -9,9 +9,10 @@ interface ChartCardProps {
   data: any[];
   className?: string;
   height?: number;
+  showLegend?: boolean;
 }
 
-export function ChartCard({ title, type, data, className, height = 250 }: ChartCardProps) {
+export function ChartCard({ title, type, data, className, height = 250, showLegend = false }: ChartCardProps) {
   const COLORS = ['#2E3A8C', '#00B4D8', '#FFD700', '#E83A59', '#4BC0C0'];
 
   const renderChart = () => {
@@ -31,6 +32,7 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
                 }} 
               />
               <Line type="monotone" dataKey="value" stroke="#2E3A8C" strokeWidth={2.5} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              {showLegend && <Legend />}
             </LineChart>
           </ResponsiveContainer>
         );
@@ -49,6 +51,7 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
                 }} 
               />
               <Bar dataKey="value" fill="#00B4D8" radius={[4, 4, 0, 0]} />
+              {showLegend && <Legend />}
             </BarChart>
           </ResponsiveContainer>
         );
@@ -79,6 +82,7 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
                   return [`${value}`, props.payload.name];
                 }}
               />
+              {showLegend && <Legend />}
             </PieChart>
           </ResponsiveContainer>
         );
@@ -97,6 +101,7 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
                 }} 
               />
               <Area type="monotone" dataKey="value" stroke="#2E3A8C" fill="url(#colorGradient)" />
+              {showLegend && <Legend />}
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#2E3A8C" stopOpacity={0.8} />
