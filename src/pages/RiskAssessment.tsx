@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Check, ChevronRight, AlertTriangle, Info } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const RiskAssessment = () => {
   const [step, setStep] = useState(1);
@@ -357,8 +357,6 @@ const RiskAssessment = () => {
   // Component import for the chart in results
   const ChartCard = ({ title, type, data, height = 250 }: { title: string; type: string; data: any[]; height?: number; }) => {
     // This is a simplified version just for the risk assessment results page
-    import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-    
     const COLORS = ['#2E3A8C', '#00B4D8', '#FFD700', '#E83A59'];
     
     return (
