@@ -18,27 +18,36 @@ const Analysis = () => {
   const [retirementData, setRetirementData] = useState<any>(null);
   const [riskData, setRiskData] = useState<any>(null);
 
+  // Format INR currency
+  const formatINR = (value: number) => {
+    return value.toLocaleString("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0
+    });
+  };
+
   // Simulate loading data that would normally be stored in context or a state management solution
   useEffect(() => {
     // In a real app, this would come from user input in the retirement and risk pages
     const mockRetirementData = {
       currentAge: 35,
       retirementAge: 65,
-      currentSavings: 75000,
-      monthlyContribution: 1200,
-      annualReturn: 6.5,
-      annualInflation: 2.8,
+      currentSavings: 6250000, // ~75,000 USD to INR
+      monthlyContribution: 100000, // ~1,200 USD to INR
+      annualReturn: 8.5, // Higher returns in Indian market context
+      annualInflation: 5.8, // Higher inflation in Indian context
       withdrawalRate: 4.2,
-      finalBalance: 1650000,
-      monthlyIncome: 5775,
+      finalBalance: 137500000, // ~1,650,000 USD to INR
+      monthlyIncome: 480000, // ~5,775 USD to INR
       projections: [
-        { name: "35", value: 75000 },
-        { name: "40", value: 220000 },
-        { name: "45", value: 420000 },
-        { name: "50", value: 700000 },
-        { name: "55", value: 1050000 },
-        { name: "60", value: 1350000 },
-        { name: "65", value: 1650000 },
+        { name: "35", value: 6250000 }, // ~75,000 USD to INR
+        { name: "40", value: 18300000 }, // ~220,000 USD to INR
+        { name: "45", value: 35000000 }, // ~420,000 USD to INR
+        { name: "50", value: 58300000 }, // ~700,000 USD to INR
+        { name: "55", value: 87500000 }, // ~1,050,000 USD to INR
+        { name: "60", value: 112500000 }, // ~1,350,000 USD to INR
+        { name: "65", value: 137500000 }, // ~1,650,000 USD to INR
       ],
     };
     
@@ -98,9 +107,9 @@ const Analysis = () => {
     
     // Calculate retirement readiness score (0-100)
     const yearsUntilRetirement = retirementData.retirementAge - retirementData.currentAge;
-    const savingsRate = (retirementData.monthlyContribution * 12) / (80000 * 0.15); // Assuming average income of 80k
+    const savingsRate = (retirementData.monthlyContribution * 12) / (6600000 * 0.15); // Assuming average income of 6.6M INR
     const retirementReadinessScore = Math.min(100, Math.round(
-      (retirementData.currentSavings / 100000) * 20 + 
+      (retirementData.currentSavings / 8500000) * 20 + 
       (yearsUntilRetirement > 20 ? 30 : yearsUntilRetirement / 20 * 30) + 
       savingsRate * 50
     ));
@@ -115,7 +124,7 @@ const Analysis = () => {
     // Generate action steps
     const actionSteps = [];
     
-    if (retirementData.monthlyContribution / 5000 < 0.2) {
+    if (retirementData.monthlyContribution / 400000 < 0.2) {
       actionSteps.push("Increase retirement contributions to at least 15% of income");
     }
     
@@ -131,12 +140,12 @@ const Analysis = () => {
       actionSteps.push("Rebalance portfolio to align with your risk profile");
     }
     
-    // Market trend insights
+    // Market trend insights (Indian context)
     const marketTrends = [
-      "Federal Reserve policy suggests interest rates will remain elevated through Q2 2025",
-      "Technology sector showing strong growth potential for the next 3-5 years",
+      "RBI policy suggests interest rates will remain elevated through Q2 2025",
+      "IT sector showing strong growth potential for the next 3-5 years",
       "Real estate market stabilizing after recent volatility",
-      "International markets, particularly emerging markets, present diversification opportunities",
+      "International diversification, particularly US equity allocation, presents opportunities",
       "ESG investments continuing to gain momentum with regulatory support"
     ];
     
@@ -153,14 +162,14 @@ const Analysis = () => {
       insights: {
         retirement: {
           onTrack: retirementReadinessScore > 65,
-          estimatedShortfall: retirementReadinessScore < 70 ? "$300,000" : "$0",
+          estimatedShortfall: retirementReadinessScore < 70 ? "₹25,00,000" : "₹0",
           suggestedWithdrawalRate: riskData.riskTolerance > 60 ? 4.5 : 3.8,
           suggestedDelayYears: retirementReadinessScore < 50 ? 3 : 0
         },
         risk: {
           portfolioVolatility: riskProfile === "aggressive" ? "High" : (riskProfile === "moderate" ? "Medium" : "Low"),
           downsideProtection: riskProfile === "conservative" ? "Strong" : (riskProfile === "moderate" ? "Adequate" : "Limited"),
-          expectedReturn: riskProfile === "aggressive" ? 8.5 : (riskProfile === "moderate" ? 7.2 : 5.8)
+          expectedReturn: riskProfile === "aggressive" ? 12.5 : (riskProfile === "moderate" ? 10.2 : 8.0)
         }
       }
     };
@@ -225,11 +234,11 @@ const Analysis = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Current Savings</p>
-                  <p className="font-medium">${retirementData.currentSavings.toLocaleString()}</p>
+                  <p className="font-medium">{formatINR(retirementData.currentSavings)}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Monthly Contribution</p>
-                  <p className="font-medium">${retirementData.monthlyContribution}</p>
+                  <p className="font-medium">{formatINR(retirementData.monthlyContribution)}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Expected Return</p>

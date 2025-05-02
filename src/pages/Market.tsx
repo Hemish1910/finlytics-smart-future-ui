@@ -12,158 +12,158 @@ const Market = () => {
   const [activeTab, setActiveTab] = useState("markets");
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Sample data for the market overview
+  // Sample data for the market overview (Indian markets)
   const marketData = [
     {
-      name: "S&P 500",
-      price: "4,782.89",
+      name: "Sensex",
+      price: "79,520.12",
       change: "+1.23%",
       isPositive: true,
     },
     {
-      name: "Dow Jones",
-      price: "39,132.76",
+      name: "Nifty 50",
+      price: "24,165.85",
       change: "+0.87%",
       isPositive: true,
     },
     {
-      name: "Nasdaq",
-      price: "15,234.21",
+      name: "Bank Nifty",
+      price: "52,784.65",
       change: "+1.68%",
       isPositive: true,
     },
     {
       name: "Bitcoin",
-      price: "$67,245.12",
+      price: "₹55,92,142",
       change: "-2.34%",
       isPositive: false,
     },
     {
-      name: "Gold",
-      price: "$2,342.15",
+      name: "Gold (10g)",
+      price: "₹74,850",
       change: "+0.42%",
       isPositive: true,
     },
     {
-      name: "10-Year Treasury",
-      price: "3.842%",
+      name: "Govt Bond (10Y)",
+      price: "6.92%",
       change: "-0.053",
       isPositive: true,
     },
   ];
   
-  // Sample data for the watchlist
+  // Sample data for the watchlist (Indian stocks)
   const watchlistData = [
     {
-      symbol: "AAPL",
-      name: "Apple Inc.",
-      price: "$189.84",
+      symbol: "RELIANCE",
+      name: "Reliance Industries",
+      price: "₹2,834.25",
       change: "+2.34%",
       isPositive: true,
     },
     {
-      symbol: "MSFT",
-      name: "Microsoft Corp.",
-      price: "$420.21",
+      symbol: "INFY",
+      name: "Infosys Ltd.",
+      price: "₹1,685.40",
       change: "+1.23%",
       isPositive: true,
     },
     {
-      symbol: "GOOGL",
-      name: "Alphabet Inc.",
-      price: "$142.15",
+      symbol: "TCS",
+      name: "Tata Consultancy Services",
+      price: "₹3,742.65",
       change: "+0.89%",
       isPositive: true,
     },
     {
-      symbol: "AMZN",
-      name: "Amazon.com Inc.",
-      price: "$182.65",
+      symbol: "HDFCBANK",
+      name: "HDFC Bank Ltd.",
+      price: "₹1,724.30",
       change: "-0.42%",
       isPositive: false,
     },
     {
-      symbol: "TSLA",
-      name: "Tesla, Inc.",
-      price: "$223.75",
+      symbol: "BHARTIARTL",
+      name: "Bharti Airtel Ltd.",
+      price: "₹1,156.75",
       change: "-1.82%",
       isPositive: false,
     },
     {
-      symbol: "META",
-      name: "Meta Platforms Inc.",
-      price: "$486.18",
+      symbol: "ITC",
+      name: "ITC Ltd.",
+      price: "₹462.80",
       change: "+3.21%",
       isPositive: true,
     },
   ];
   
-  // Sample news data
+  // Sample news data (Indian context)
   const newsData = [
     {
-      title: "Fed Signals Potential Rate Cut in September Amid Cooling Inflation",
-      source: "Financial Times",
+      title: "RBI Holds Key Interest Rate Steady Amid Cooling Inflation",
+      source: "Economic Times",
       time: "2 hours ago",
       category: "Economy",
     },
     {
-      title: "Tech Stocks Rally as Earnings Exceed Expectations",
-      source: "Wall Street Journal",
+      title: "IT Stocks Rally as Q2 Earnings Exceed Expectations",
+      source: "Business Standard",
       time: "4 hours ago",
       category: "Markets",
     },
     {
-      title: "Housing Market Showing Signs of Cooling After Record Highs",
-      source: "Bloomberg",
+      title: "Property Market Showing Signs of Cooling After Record Highs",
+      source: "Financial Express",
       time: "6 hours ago",
       category: "Real Estate",
     },
     {
-      title: "Emerging Markets Face Pressure Amid Dollar Strength",
-      source: "Reuters",
+      title: "Indian Rupee Under Pressure Amid Dollar Strength",
+      source: "Mint",
       time: "8 hours ago",
-      category: "Global Markets",
+      category: "Currency",
     },
     {
-      title: "Electric Vehicle Demand Surges as Battery Costs Decline",
-      source: "CNBC",
+      title: "EV Demand Surges as Battery Costs Decline",
+      source: "ET Auto",
       time: "10 hours ago",
       category: "Industry",
     },
   ];
   
-  // Sample chart data
+  // Sample chart data (with INR values)
   const stockChartData = [
-    { name: "Jan", value: 165 },
-    { name: "Feb", value: 170 },
-    { name: "Mar", value: 168 },
-    { name: "Apr", value: 175 },
-    { name: "May", value: 182 },
-    { name: "Jun", value: 187 },
-    { name: "Jul", value: 179 },
-    { name: "Aug", value: 190 },
+    { name: "Jan", value: 1650 },
+    { name: "Feb", value: 1700 },
+    { name: "Mar", value: 1680 },
+    { name: "Apr", value: 1750 },
+    { name: "May", value: 1820 },
+    { name: "Jun", value: 1870 },
+    { name: "Jul", value: 1790 },
+    { name: "Aug", value: 1900 },
   ];
   
   const cryptoChartData = [
-    { name: "Jan", value: 45000 },
-    { name: "Feb", value: 48000 },
-    { name: "Mar", value: 52000 },
-    { name: "Apr", value: 58000 },
-    { name: "May", value: 54000 },
-    { name: "Jun", value: 62000 },
-    { name: "Jul", value: 65000 },
-    { name: "Aug", value: 67000 },
+    { name: "Jan", value: 3750000 },
+    { name: "Feb", value: 4000000 },
+    { name: "Mar", value: 4330000 },
+    { name: "Apr", value: 4830000 },
+    { name: "May", value: 4500000 },
+    { name: "Jun", value: 5160000 },
+    { name: "Jul", value: 5420000 },
+    { name: "Aug", value: 5580000 },
   ];
   
   const commoditiesChartData = [
-    { name: "Jan", value: 1850 },
-    { name: "Feb", value: 1920 },
-    { name: "Mar", value: 1980 },
-    { name: "Apr", value: 2050 },
-    { name: "May", value: 2120 },
-    { name: "Jun", value: 2180 },
-    { name: "Jul", value: 2260 },
-    { name: "Aug", value: 2340 },
+    { name: "Jan", value: 61500 },
+    { name: "Feb", value: 63600 },
+    { name: "Mar", value: 65600 },
+    { name: "Apr", value: 67900 },
+    { name: "May", value: 70200 },
+    { name: "Jun", value: 72200 },
+    { name: "Jul", value: 74800 },
+    { name: "Aug", value: 77400 },
   ];
   
   return (
@@ -217,17 +217,17 @@ const Market = () => {
             {/* Market Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <ChartCard 
-                title="S&P 500" 
+                title="Reliance (₹)" 
                 type="line" 
                 data={stockChartData} 
               />
               <ChartCard 
-                title="Bitcoin (USD)" 
+                title="Bitcoin (₹)" 
                 type="line" 
                 data={cryptoChartData} 
               />
               <ChartCard 
-                title="Gold Price" 
+                title="Gold Price (10g)" 
                 type="line" 
                 data={commoditiesChartData} 
               />
@@ -241,12 +241,12 @@ const Market = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "Technology", change: "+2.4%", isPositive: true },
+                    { name: "IT", change: "+2.4%", isPositive: true },
                     { name: "Healthcare", change: "+1.2%", isPositive: true },
-                    { name: "Financials", change: "+0.8%", isPositive: true },
+                    { name: "Financial Services", change: "+0.8%", isPositive: true },
                     { name: "Energy", change: "-0.5%", isPositive: false },
-                    { name: "Consumer Staples", change: "+0.3%", isPositive: true },
-                    { name: "Utilities", change: "-0.7%", isPositive: false },
+                    { name: "FMCG", change: "+0.3%", isPositive: true },
+                    { name: "PSU Banks", change: "-0.7%", isPositive: false },
                   ].map((sector, index) => (
                     <div key={index} className="flex items-center justify-between p-3 border border-gray-100 dark:border-gray-800 rounded-md">
                       <span>{sector.name}</span>
@@ -309,14 +309,14 @@ const Market = () => {
               title="Portfolio Performance" 
               type="area" 
               data={[
-                { name: "Jan", value: 10000 },
-                { name: "Feb", value: 10400 },
-                { name: "Mar", value: 10200 },
-                { name: "Apr", value: 10800 },
-                { name: "May", value: 11200 },
-                { name: "Jun", value: 11600 },
-                { name: "Jul", value: 11400 },
-                { name: "Aug", value: 12000 },
+                { name: "Jan", value: 830000 },
+                { name: "Feb", value: 865000 },
+                { name: "Mar", value: 850000 },
+                { name: "Apr", value: 900000 },
+                { name: "May", value: 930000 },
+                { name: "Jun", value: 965000 },
+                { name: "Jul", value: 950000 },
+                { name: "Aug", value: 1000000 },
               ]} 
             />
             

@@ -11,33 +11,33 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  // Sample data
-  const portfolioValue = 125876.43;
+  // Sample data (converted to INR)
+  const portfolioValue = 10470000; // ~125,876.43 USD to INR
   const portfolioChange = 2.4;
   const savingsRate = 28.6;
-  const monthlySpending = 3245.78;
+  const monthlySpending = 270000; // ~3,245.78 USD to INR
 
-  // Sample chart data
+  // Sample chart data (converted to INR)
   const netWorthData = [
-    { name: "Jan", value: 98500 },
-    { name: "Feb", value: 102000 },
-    { name: "Mar", value: 101200 },
-    { name: "Apr", value: 104800 },
-    { name: "May", value: 110500 },
-    { name: "Jun", value: 112000 },
-    { name: "Jul", value: 116500 },
-    { name: "Aug", value: 119200 },
-    { name: "Sep", value: 122500 },
-    { name: "Oct", value: 125876 },
+    { name: "Jan", value: 8200000 }, // ~98,500 USD to INR
+    { name: "Feb", value: 8500000 }, // ~102,000 USD to INR
+    { name: "Mar", value: 8430000 }, // ~101,200 USD to INR
+    { name: "Apr", value: 8720000 }, // ~104,800 USD to INR
+    { name: "May", value: 9200000 }, // ~110,500 USD to INR
+    { name: "Jun", value: 9330000 }, // ~112,000 USD to INR
+    { name: "Jul", value: 9700000 }, // ~116,500 USD to INR
+    { name: "Aug", value: 9920000 }, // ~119,200 USD to INR
+    { name: "Sep", value: 10200000 }, // ~122,500 USD to INR
+    { name: "Oct", value: 10470000 }, // ~125,876 USD to INR
   ];
 
   const spendingData = [
-    { name: "Housing", value: 1520 },
-    { name: "Food", value: 680 },
-    { name: "Transport", value: 420 },
-    { name: "Utilities", value: 320 },
-    { name: "Entertainment", value: 240 },
-    { name: "Other", value: 65.78 },
+    { name: "Housing", value: 126600 }, // ~1,520 USD to INR
+    { name: "Food", value: 56600 }, // ~680 USD to INR
+    { name: "Transport", value: 35000 }, // ~420 USD to INR
+    { name: "Utilities", value: 26700 }, // ~320 USD to INR
+    { name: "Entertainment", value: 20000 }, // ~240 USD to INR
+    { name: "Other", value: 5500 }, // ~65.78 USD to INR
   ];
 
   const riskData = {
@@ -62,6 +62,15 @@ const Dashboard = () => {
     });
   }, []);
 
+  // Function to format INR currency
+  const formatINR = (value: number) => {
+    return value.toLocaleString("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0
+    });
+  };
+
   return (
     <div className="space-y-6 pb-8">
       <HeroSection />
@@ -69,13 +78,13 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
           title="Portfolio Value"
-          value={`$${portfolioValue.toLocaleString("en-US", { maximumFractionDigits: 2 })}`}
+          value={formatINR(portfolioValue)}
           trend={{ value: portfolioChange, isPositive: portfolioChange > 0 }}
           icon={<Wallet className="h-5 w-5" />}
         />
         <StatsCard
           title="Monthly Spending"
-          value={`$${monthlySpending.toLocaleString("en-US", { maximumFractionDigits: 2 })}`}
+          value={formatINR(monthlySpending)}
           trend={{ value: 1.2, isPositive: false }}
           icon={<LineChart className="h-5 w-5" />}
         />
@@ -177,7 +186,7 @@ const Dashboard = () => {
               <span>Investment Tip of the Day</span>
             </h3>
             <p className="mb-4">
-              Market volatility is normal. Consistent investing through market ups and downs (dollar-cost averaging) 
+              Market volatility is normal. Consistent investing through market ups and downs (rupee-cost averaging) 
               can help reduce the impact of volatility on your overall portfolio.
             </p>
             <Button variant="outline" size="sm">Learn More</Button>
@@ -186,21 +195,21 @@ const Dashboard = () => {
             <h3 className="text-lg font-semibold mb-2">Latest Market Update</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span>S&P 500</span>
+                <span>Sensex</span>
                 <div className="flex items-center gap-1 text-green-600">
                   <ArrowUp className="h-3 w-3" />
                   <span>0.75%</span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span>Dow Jones</span>
+                <span>Nifty 50</span>
                 <div className="flex items-center gap-1 text-green-600">
                   <ArrowUp className="h-3 w-3" />
                   <span>0.38%</span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span>NASDAQ</span>
+                <span>Bank Nifty</span>
                 <div className="flex items-center gap-1 text-red-600">
                   <ArrowDown className="h-3 w-3" />
                   <span>0.23%</span>
