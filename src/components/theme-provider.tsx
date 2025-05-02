@@ -29,9 +29,14 @@ export function ThemeProvider({
   storageKey = "finlytics-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  // Fix: Move useState initialization inside the component function body
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Check if we're in a browser environment before accessing localStorage
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
+    }
+    return defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
