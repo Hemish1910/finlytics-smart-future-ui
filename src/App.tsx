@@ -15,31 +15,40 @@ import Market from "./pages/Market";
 import Knowledge from "./pages/Knowledge";
 import AIAdvisor from "./pages/AIAdvisor";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Analysis from "./pages/Analysis";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="light">
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Layout>
+const App = () => {
+  // In a real app, you would check for authentication status here
+  const isAuthenticated = true; // This would be managed by your authentication logic
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="light">
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/risk-assessment" element={<RiskAssessment />} />
-              <Route path="/retirement" element={<Retirement />} />
-              <Route path="/market" element={<Market />} />
-              <Route path="/knowledge" element={<Knowledge />} />
-              <Route path="/ai-advisor" element={<AIAdvisor />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/" element={<Layout><Dashboard /></Layout>} />
+              <Route path="/risk-assessment" element={<Layout><RiskAssessment /></Layout>} />
+              <Route path="/retirement" element={<Layout><Retirement /></Layout>} />
+              <Route path="/market" element={<Layout><Market /></Layout>} />
+              <Route path="/knowledge" element={<Layout><Knowledge /></Layout>} />
+              <Route path="/ai-advisor" element={<Layout><AIAdvisor /></Layout>} />
+              <Route path="/analysis" element={<Layout><Analysis /></Layout>} />
+              <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
-          </Layout>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
