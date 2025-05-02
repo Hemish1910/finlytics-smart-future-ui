@@ -4,7 +4,7 @@ import { BarChart, Bar, PieChart, Pie, LineChart, Line, Area, AreaChart, XAxis, 
 import { cn } from "@/lib/utils";
 
 interface ChartCardProps {
-  title: string;
+  title?: string;
   type: "line" | "bar" | "pie" | "area";
   data: any[];
   className?: string;
@@ -12,6 +12,8 @@ interface ChartCardProps {
 }
 
 export function ChartCard({ title, type, data, className, height = 250 }: ChartCardProps) {
+  const COLORS = ['#2E3A8C', '#00B4D8', '#FFD700', '#E83A59', '#4BC0C0'];
+
   const renderChart = () => {
     switch (type) {
       case "line":
@@ -51,7 +53,6 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
           </ResponsiveContainer>
         );
       case "pie":
-        const COLORS = ['#2E3A8C', '#00B4D8', '#FFD700', '#FF6B6B', '#4BC0C0'];
         return (
           <ResponsiveContainer width="100%" height={height}>
             <PieChart>
@@ -112,9 +113,11 @@ export function ChartCard({ title, type, data, className, height = 250 }: ChartC
 
   return (
     <Card className={cn("overflow-hidden glass-card hover-scale", className)}>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg">{title}</CardTitle>
-      </CardHeader>
+      {title && (
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg">{title}</CardTitle>
+        </CardHeader>
+      )}
       <CardContent className="p-4">
         {renderChart()}
       </CardContent>

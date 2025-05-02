@@ -2,7 +2,7 @@
 import { Header } from "@/components/header";
 import { SidebarNav } from "@/components/sidebar-nav";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { CircleNotch, CircleDashed, Sparkles } from "lucide-react";
+import { CircleDot, CircleDashed, Sparkles } from "lucide-react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
@@ -13,7 +13,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="absolute top-20 -right-16 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full bg-secondary/5 blur-3xl" />
       <div className="absolute top-1/4 left-1/3 w-6 h-6 text-primary/20 floating">
-        <CircleNotch />
+        <CircleDot />
       </div>
       <div className="absolute bottom-1/4 right-1/3 w-4 h-4 text-secondary/20 floating-slow">
         <CircleDashed />

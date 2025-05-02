@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { ChartCard } from "@/components/dashboard/chart-card";
@@ -69,25 +70,25 @@ const Dashboard = () => {
         <StatsCard
           title="Portfolio Value"
           value={`$${portfolioValue.toLocaleString("en-US", { maximumFractionDigits: 2 })}`}
-          indicator={{ value: portfolioChange, positive: portfolioChange > 0 }}
+          trend={{ value: portfolioChange, isPositive: portfolioChange > 0 }}
           icon={<Wallet className="h-5 w-5" />}
         />
         <StatsCard
           title="Monthly Spending"
           value={`$${monthlySpending.toLocaleString("en-US", { maximumFractionDigits: 2 })}`}
-          indicator={{ value: -1.2, positive: false }}
+          trend={{ value: 1.2, isPositive: false }}
           icon={<LineChart className="h-5 w-5" />}
         />
         <StatsCard
           title="Savings Rate"
           value={`${savingsRate}%`}
-          indicator={{ value: 3.5, positive: true }}
+          trend={{ value: 3.5, isPositive: true }}
           icon={<PiggyBank className="h-5 w-5" />}
         />
         <StatsCard
           title="Risk Score"
           value={riskData.score}
-          description={riskData.profile}
+          subtitle={riskData.profile}
           icon={<ShieldCheck className="h-5 w-5" />}
         />
       </div>
@@ -109,7 +110,6 @@ const Dashboard = () => {
               <ChartCard
                 type="area"
                 data={netWorthData}
-                colors={["#2E3A8C"]}
                 height={250}
               />
             </div>
@@ -136,7 +136,6 @@ const Dashboard = () => {
               <ChartCard
                 type="pie"
                 data={spendingData}
-                colors={["#2E3A8C", "#00B4D8", "#FFD700", "#E83A59", "#34D399", "#A78BFA"]}
                 height={220}
               />
             </div>
@@ -153,19 +152,19 @@ const Dashboard = () => {
         <FeatureCard
           title="Risk Assessment"
           description="Analyze your risk tolerance and get a personalized investment strategy"
-          icon={ShieldCheck}
+          icon={<ShieldCheck className="h-6 w-6" />}
           href="/risk-assessment"
         />
         <FeatureCard
           title="Retirement Planner"
           description="Plan your financial future with our interactive retirement calculator"
-          icon={PiggyBank}
+          icon={<PiggyBank className="h-6 w-6" />}
           href="/retirement"
         />
         <FeatureCard
           title="AI Investment Advisor"
           description="Get personalized investment advice powered by artificial intelligence"
-          icon={LineChart}
+          icon={<LineChart className="h-6 w-6" />}
           href="/ai-advisor"
         />
       </div>

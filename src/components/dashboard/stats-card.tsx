@@ -10,6 +10,7 @@ interface StatsCardProps {
     value: number;
     isPositive: boolean;
   };
+  subtitle?: string;
   className?: string;
   color?: "primary" | "secondary" | "accent" | "default";
 }
@@ -19,6 +20,7 @@ export function StatsCard({
   value,
   icon,
   trend,
+  subtitle,
   className,
   color = "default",
 }: StatsCardProps) {
@@ -41,6 +43,11 @@ export function StatsCard({
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
+        {subtitle && (
+          <div className="text-xs font-medium mt-1 text-muted-foreground">
+            {subtitle}
+          </div>
+        )}
         {trend && (
           <div className={cn(
             "text-xs font-medium mt-1",
