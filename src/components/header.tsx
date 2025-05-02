@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Menu, X, Bell, User } from "lucide-react";
+import { Menu, X, Bell, User, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -29,7 +29,7 @@ export function Header() {
   const isMobile = useIsMobile();
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/90 dark:bg-dark/90 border-b border-gray-200 dark:border-gray-800">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-lg bg-white/60 dark:bg-dark/60 border-b border-gray-200/50 dark:border-gray-800/50">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-4">
           {isMobile && (
@@ -44,7 +44,7 @@ export function Header() {
             </Button>
           )}
           <Link to="/" className="flex items-center gap-2">
-            <span className="h-8 w-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+            <span className="h-9 w-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center pulse-animation">
               <Wallet className="h-4 w-4 text-white" />
             </span>
             <span className="font-poppins font-bold text-xl text-primary-500 dark:text-white">
@@ -53,13 +53,27 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" aria-label="Notifications">
+        <div className="hidden md:flex">
+          <div className="bg-white/60 dark:bg-dark/60 backdrop-blur-lg border border-gray-200/50 dark:border-gray-800/50 rounded-full px-4 py-1.5 flex items-center gap-2">
+            <Search className="h-4 w-4 text-gray-400" />
+            <input 
+              type="text" 
+              placeholder="Search insights..." 
+              className="bg-transparent border-none outline-none text-sm w-40 lg:w-60 focus:ring-0"
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 md:gap-4">
+          <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
             <Bell className="h-5 w-5" />
+            <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500"></span>
           </Button>
           <ThemeSwitcher />
           <Button variant="ghost" size="icon" className="rounded-full" aria-label="Profile">
-            <User className="h-5 w-5" />
+            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-secondary/80 to-primary/80 flex items-center justify-center">
+              <User className="h-4 w-4 text-white" />
+            </div>
           </Button>
         </div>
       </div>
@@ -68,7 +82,7 @@ export function Header() {
       {isMobile && (
         <div
           className={cn(
-            "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm md:hidden transition-opacity",
+            "fixed inset-0 z-50 bg-background/80 backdrop-blur-md md:hidden transition-opacity",
             isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           )}
         >
@@ -97,8 +111,20 @@ export function Header() {
                   <X />
                 </Button>
               </div>
+              
+              <div className="mb-6">
+                <div className="bg-gray-100 dark:bg-gray-800/50 rounded-lg px-3 py-2 flex items-center gap-2">
+                  <Search className="h-4 w-4 text-gray-400" />
+                  <input 
+                    type="text" 
+                    placeholder="Search insights..." 
+                    className="bg-transparent border-none outline-none text-sm w-full focus:ring-0"
+                  />
+                </div>
+              </div>
+              
               {/* Mobile navigation items */}
-              <nav className="flex flex-col space-y-4">
+              <nav className="flex flex-col space-y-1">
                 {[
                   { name: "Dashboard", href: "/" },
                   { name: "Risk Assessment", href: "/risk-assessment" },
@@ -110,7 +136,7 @@ export function Header() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-primary-800 dark:text-light-teal hover:text-primary-600 px-2 py-1.5 text-lg font-medium"
+                    className="text-primary-800 dark:text-light-teal hover:text-primary-600 px-3 py-2.5 text-lg font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
